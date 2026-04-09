@@ -1,6 +1,6 @@
 # SU Club Organizations
 
-A web-based database application for managing Salisbury University's student clubs, members, events, and finances. Built for COSC 386 (Spring 2026) under Dr. Jing.
+A web-based database application for managing Salisbury University's student clubs, members, events, and finances.
 
 ## What It Does
 
