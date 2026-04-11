@@ -1,3 +1,13 @@
+<?php
+// ═══════════════════════════════════════════════════════════
+// AUTH GATE — sga_admin only.
+// MUST be at the very top, before any HTML output and before
+// the DB connection. If anything (even whitespace) prints
+// before this, the header() redirect will fail.
+// ═══════════════════════════════════════════════════════════
+require_once __DIR__ . "/../src/auth.php";
+require_role("sga_admin");
+?>
 <html>
 <body>
 <?php
@@ -17,7 +27,7 @@ if ($connection = @mysqli_connect($db_host, $db_user, $db_pass, $db_name)) {
 }
 
 // ─── ACTIVE TAB ─────────────────────────────────────────────
-$valid_tabs = array("clubs","members","membership","officers","communication","events","locations","fees","payments");
+$valid_tabs = array("clubs","members","membership","officers","communication","events","locations");
 if (isset($_GET["tab"])) {
     $tab = $_GET["tab"];
 } else {
@@ -365,7 +375,7 @@ $row_count = mysqli_num_rows($r);
 
 // Helper dropdowns
 $club_list = mysqli_query($connection, "SELECT name FROM Club ORDER BY name ASC");
-$member_list = mysqli_query($connection, "SELECT suID, name FROM Members ORDER BY name ASC");
+$member_list = mysqli_query($connection, "SELECT suID, fname, lname FROM Members ORDER BY lname ASC, fname ASC");
 $location_list = mysqli_query($connection, "SELECT address, building FROM Location ORDER BY building ASC");
 $fee_list = mysqli_query($connection, "SELECT feeID FROM Fees ORDER BY feeID ASC");
 
@@ -377,9 +387,7 @@ $tab_labels = array(
     "officers" => "Officers",
     "communication" => "Comms",
     "events" => "Events",
-    "locations" => "Locations",
-    "fees" => "Fees",
-    "payments" => "Payments"
+    "locations" => "Locations"
 );
 ?>
 
